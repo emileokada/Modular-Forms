@@ -1,0 +1,9 @@
+[0] 554906f9.pm:318> INFO - This is Biber 1.8
+[0] 554906f9.pm:321> INFO - Logfile is 'mod_forms.blg'
+[65] biber-darwin:275> INFO - === Wed Jan  9, 2019, 18:49:43
+[66] Biber.pm:333> INFO - Reading 'mod_forms.bcf'
+[125] Biber.pm:630> INFO - Found 0 citekeys in bib section 0
+[125] 2314f2fc.pm:169> WARN - The file 'mod_forms.bcf' does not contain any citations!
+[158] bbl.pm:482> INFO - Writing 'mod_forms.bbl' with encoding 'ascii'
+[159] bbl.pm:555> INFO - Output to mod_forms.bbl
+[160] Biber.pm:105> INFO - WARNINGS: 1

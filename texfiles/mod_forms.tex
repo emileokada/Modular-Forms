@@ -1,0 +1,907 @@
+\documentclass{memoir}
+
+\input{header}
+\title{Modular forms and L-functions}
+\author{Emile T. Okada}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\chapter{Preliminary analysis}
+\section{Fourier transform}
+Let $G$ be a locally compact group. Then $\hat G$ has the strucutre of a locally compact group and there is a canonical map $G\to\hat\hat G$.
+\begin{thm}
+    The canonical map $G\to\hat{\hat G}$ is an isomorphism.
+\end{thm}
+\begin{proof}
+    TODO.
+\end{proof}
+\begin{definition}
+    Let $G$ be a topological group. A \textit{Haar measure} is a left translation-invariant Borel measure on $G$ satisfying some regularity conditions (e.g. being finite on compact sets).
+\end{definition}
+\begin{thm}
+    Let $G$ be a locally compact abelian group. Then there is a Haar measure on $G$, unique up to scaling.
+\end{thm}
+\begin{proof}
+    TODO.
+\end{proof}
+\begin{example}
+    The Haar measure on $\R_{>0}^\times$ is $\mu(S) = \int_{\R_{>0}}1_S(x)dx/x$.
+\end{example}
+\begin{definition}
+    Let $G$ be a locally compact abelian group with a Haar measure $dg$, and let $f:G\to\C$ be a continuous $L^1$ function. The \textit{Fourier transform} $\hat f:\hat G\to\C$ is given by
+    \begin{equation}
+        \hat f(\chi) = \int_G \chi(g)^{-1}f(g)dg.
+    \end{equation}
+\end{definition}
+\begin{thm}
+    Given a locally compact abelian group $G$ with a fixed Haar measure, there is some constant $C$ such that for "suitable" $f:G\to \C$, we have
+    \begin{equation}
+        \hat{\hat f}(g) = C f(-g)
+    \end{equation}
+    using the canonical isomorphism $G\to\hat{\hat G}$.
+\end{thm}
+\begin{thm}
+    (Poisson summation). 
+    Let $f\in \mathcal S(\R^n)$. Then
+    \begin{equation}
+        \sum_{a\in \Z^n} f(a) = \sum_{b\in \Z^n} \hat f(b).
+    \end{equation}
+\end{thm}
+\begin{proof}
+    Let $g(x) = \sum_{a\in \Z^n}f(x+a)$ and consider its fourier transform as a function on $\R^n/\Z^n$.
+\end{proof}
+\section{Mellin transform and $\Gamma$-function}
+\begin{definition}
+    (Mellin transform).
+    Let $f:\R_{>0}\to \C$ be a continuous function. Define
+    \begin{equation}
+        M(f,s) = \int_0^\infty y^s f(y) \frac{dy}y
+    \end{equation}
+    whenever it converges.
+\end{definition}
+\begin{lemma}
+    Let $f:\R_{>0}\to \C$ be continuous. If (a) $y^Nf(y)\to0$ as $y\to\infty$ for all $N\in\Z$ and (b) there exists $m$ such that $\abs{y^m f(y)}$ is bounded as $y\to0$, then $M(f,s)$ converges and is analytic on $\Re(s)>m$.
+\end{lemma}
+\begin{proof}
+    For $0<r<R<\infty$, the function 
+    \begin{equation}
+        \int_r^Ry^sf(y)\frac{dy}{y}
+    \end{equation}
+    is analytic for all s.
+    TODO.
+\end{proof}
+\begin{remark}
+    When $G = \R_{>0}$, $\hat G = \{y\mapsto y^{i\sigma}:\sigma\in\R\}\cong \R$ so the Mellin transform is the analytic continuation of the fourier transform of $f$.
+\end{remark}
+\begin{proposition}
+    \begin{equation}
+        M(f(\alpha y),s) = \alpha^{-s}M(f,s)
+    \end{equation}
+    for $\alpha>0$.
+\end{proposition}
+\begin{proof}
+    Obvious.
+\end{proof}
+\subsection{The $\Gamma$-function}
+\begin{definition}
+    ($\Gamma$-function). 
+    The $\Gamma$-function is the Mellin transform of $f(y) = e^{-y}$.
+\end{definition}
+This is analytic for $\Re(s)>0$.
+\begin{proposition}
+    \begin{equation}
+        \Gamma(1) = 1, \quad s\Gamma(s) = \Gamma(s+1), s\ne 0.
+    \end{equation}
+\end{proposition}
+\begin{proof}
+    First part obvious.
+    For second part:
+    \begin{equation}
+        \Gamma(s) = \int_0^\infty e^{-y}y^{s-1}dy = \left[e^{-y}\frac{y^s}s\right]_0^\infty + \frac1s\int_0^\infty e^{-y}y^sdy = \frac1s\Gamma(s+1).
+    \end{equation}
+\end{proof}
+Iterating this result we get $\Gamma(s) = \left(\prod_{i=0}^N(s+i)\right)^{-1}\Gamma(s+N+1)$ and so we can extend $\Gamma$ to a meromorphic function on $\C$ with
+\begin{equation}
+    \res_{s = -N} \Gamma(s) = \frac{(-1)^{N}}{N!}
+\end{equation}
+for $N\ge0$.
+\begin{proposition}
+    \begin{align}
+        \Gamma(s)^{-1} &= e^{\gamma s}s\prod_{n\ge 1} \left(1+\frac sn\right)e^{-s/n} \\
+        \pi^{1/2}\Gamma(2s) &= 2^{2s-1}\Gamma(s)\Gamma\left(s+\frac12\right) \\
+        \Gamma(s)\Gamma(1-s) &= \frac{\pi}{\sin(\pi s)}
+    \end{align}
+    for all $s\in \C$.
+\end{proposition}
+\begin{remark}
+    Merllin transforms are important because a lot of Dirichlet series are Mellin transforms. Consider the series $\sum_{n\ge1}a_n/n^s$.
+    We can write
+    \begin{align}
+        (2\pi)^{-s} \Gamma(s) \sum_{n=1}^\infty\frac{a_n}{n^s} &= \sum_{n=1}^\infty a_n(2\pi n)^{-s} M(e^{-y},s) \nonumber \\
+                                                               &= \sum_{n=1}^\infty M(a_n e^{-2\pi ny},s) \nonumber \\
+                                                               &= M(f,s)
+    \end{align}
+    where $f = \sum_{n=1}^\infty a_ne^{-2\pi ny}$.
+\end{remark}
+\section{Riemann $\zeta$-function}
+\begin{definition}
+    (Riemann $\zeta$-functions).
+    The \textit{Riemann $\zeta$-function} is defined by
+    \begin{equation}
+        \zeta(s) = \sum_{n\ge1}\frac1{n^s}
+    \end{equation}
+    for $\Re(s)>1$.
+\end{definition}
+\begin{proposition}
+    \begin{equation}
+        \zeta(s) = \prod_{p \text{ prime}}\frac1{1-p^{-s}}.
+    \end{equation}
+\end{proposition}
+\begin{thm}
+    If $\Re(s)>1$, then
+    \begin{equation}
+        (2\pi)^{-s}\Gamma(s)\zeta(s) = \int_0^\infty\frac{y^s}{e^{2\pi y}-1} \frac{dy}y = M(f,s)
+    \end{equation}
+    where 
+    \begin{equation}
+        f(y) = \frac1{e^{2\pi y} - 1}.
+    \end{equation}
+\end{thm}
+\begin{proof}
+    Let 
+    \begin{equation}
+        f(y) = \frac{e^{-2\pi y}}{1-e^{-2\pi y}} = \sum_{n\ge1} e^{-2\pi ny}
+    \end{equation}
+    for $y>0$.
+    As $y\to 0$, $f(y) \sim 1/2\pi y$. 
+    So taking the Mellin transform of $f$ gives the required result.
+\end{proof}
+\begin{corollary}
+    $\zeta(s)$ extends meromorphically to $\C$ with a single pole located at $s=1$ which is simple and has $\res_{s=1}\zeta(s) = 1$.
+\end{corollary}
+\begin{proof}
+    Write 
+    \begin{equation}
+        M(f,s) = M_0 + M_\infty = \left(\int_0^1+\int_1^\infty\right) \frac{y^s}{e^{2\pi y}-1}\frac{dy}y.
+    \end{equation}
+    $M_\infty$ is holomorphic on $\C$.
+    For fixed $N$, we can expand 
+    \begin{equation}
+        f(y) = \sum_{n=-1}^{N-1}c_ny^n + y^Ng_N(y)
+    \end{equation}
+    for some $g\in C^\infty(\R)$,  since $f$ has a simple pole at $s=0$, and $c_{-1} = 1/2\pi$.
+    Thus for $\Re(s)>1$,
+    \begin{align}
+        M_0 &= \sum_{n=-1}^{N-1} c_n\int_0^1y^{n+s-1}dy + \int_0^1y^{N+s-1}g_N(y)dy \nonumber \\
+            &= \sum_{n=-1}^{N-1} \frac{c_n}{s+n}y^{n+s} + \int_0^1g_N(y)y^{s+N-1}dy.
+    \end{align}
+    This formula makes sense for $\Re(s)>-N$.
+    Thus we may extend $(2\pi)^{-s}\Gamma(s)\zeta(s)$ to $\C$.
+    This has at worst simple poles at $1,0,-1,-2,\dots$.
+    But $\Gamma(s)$ has simple poles at $0,-1,-2,\dots$ so $\zeta(s)$ must be analytic at $s=0,-1,-2\dots$.
+    Since $\Gamma(1) = 1$, $\res_{s=1}\zeta(s) = 1$.
+\end{proof}
+\begin{definition}
+    (Bernoulli numbers).
+    The \textit{Bernoulli numbers} are defined by
+    \begin{equation}
+        \sum_{n=0}^\infty B_n\frac{t^n}{n!} = \frac t{e^t-1}.
+    \end{equation}
+\end{definition}
+\begin{corollary}
+    \begin{equation}
+        \zeta(0) = B_1, \quad \zeta(1-n) = -\frac{B_n}n, n>1.
+    \end{equation}
+\end{corollary}
+\begin{proof}
+    Keeping with the notation from the proof of the previous corollary, $(2\pi)^{-s}\Gamma(s)\zeta(s)$ has a simple pole at $s=1-n$ with residue $c_{n-1}$.
+    Thus
+    \begin{equation}
+        c_{n-1} = (2\pi)^{n-1}\frac{B_n}{n!}.
+    \end{equation}
+    But also
+    \begin{equation}
+        \res_{s=1-n}(2\pi)^{-s}\Gamma(s)\zeta(s) = (2\pi)^{n-1}\zeta(1-n)\res_{s=1-n}\Gamma(s).
+    \end{equation}
+    We know the residue of $\Gamma(s)$ and so plugging in its value and equating gives the result.
+\end{proof}
+\begin{definition}
+    (Jacobi's $\vartheta$-function).
+    \begin{equation}
+        \vartheta(s) = \sum_{n\in\Z}e^{\pi i n^2 s}
+    \end{equation}
+    on $\Im(s)>0$.
+\end{definition}
+We then define $\Theta(y) = \vartheta(iy)$.
+Note that $\Theta(y)\to1$ as $y\to\infty$.
+\begin{proposition}
+    \begin{equation}
+        M\left(\frac{\Theta(y)-1}2,\frac s2\right) = \pi^{-s/2}\gamma\left(\frac s2\right)\zeta(s).
+    \end{equation}
+\end{proposition}
+\begin{proof}
+    Obvious.
+\end{proof}
+\begin{thm}
+    If $y>0$, then 
+    \begin{equation}
+        \Theta\left(\frac 1y\right) = y^{1/2}\Theta(y),
+    \end{equation}
+    where we are taking the positive square root.
+\end{thm}
+\begin{proof}
+    Let $g_t(x) = e^{-tx^2}$.
+    Recall that $\hat g_t(y) = t^{-1/2} e^{-\pi y^2/t}$.
+    By Poisson summation 
+    \begin{equation}
+        \Theta(t) = \sum_{n\in \Z}e^{-\pi n^2t} = \sum_{n\in \Z}g_t(n) = \sum_{n\in\Z}\hat g_t(n) = t^{-1/2}\Theta(1/t).
+    \end{equation}
+\end{proof}
+\begin{corollary}
+    \begin{equation}
+        \vartheta\left(-\frac 1z\right) = \left(\frac zi\right)^{1/2}\vartheta(z),
+    \end{equation}
+    where we are taking the branch of the square root that is positive on the positive real axis.
+\end{corollary}
+\begin{proof}
+    Follows from analytic continuation.
+\end{proof}
+\begin{notation}
+    \begin{align}
+        \Gamma_\R(s) &= \pi^{-s/2}\Gamma(s/2) \\
+        \Gamma_\C(s) &= 2(2\pi)^{-s}\Gamma(s) \\
+        Z(s) &= \Gamma_\R(s)\zeta(s).
+    \end{align}
+\end{notation}
+\begin{thm}
+    \begin{equation}
+        Z(s) = Z(1-s).
+    \end{equation}
+    Moreover, $Z(s)$ is meromorphic with the poles located at $s=0$ and $s=1$.
+\end{thm}
+\begin{proof}
+    Have
+    \begin{equation}
+        2Z(s) = M(\Theta(y)-1,s/2) = \left(\int_0^1+\int_1^\infty\right)(\Theta(y)-1)y^{s/2})\frac{dy}y.
+    \end{equation}
+    But
+    \begin{align}
+        \int_0^1(\Theta(y)-1)y^{s/2}\frac{dy}y &= \int_0^1(\Theta(y)-y^{-1/2})y^{s/2}+\int_0^1y^{(s-1)/2}-y^{s/2})\frac{dy}y \nonumber \\
+                                               &= \int_0^1(\Theta(1/y)-1)y^{(s-1)/2}\frac{dy}y + \frac2{s-1} -\frac2s \nonumber \\
+                                               &= \int_1^\infty(\Theta(y)-1)y^{(1-s)/2}\frac{dy}y + \frac2{s-1} -\frac2s.
+    \end{align}
+    Thus
+    \begin{equation}
+        2Z(s) = \int_1^\infty(\Theta(y)-1)(y^{s/2}+y^{(1-s)/2})\frac{dy}y + \frac2{s-1}-\frac2s = 2Z(1-s).
+    \end{equation}
+\end{proof}
+\section{Dirichlet $L$-functions}
+\begin{definition}
+    (Dirichlet characters).
+    Let $N\ge1$. 
+    A \textit{Dirichlet character mod $N$} is a character $\chi:\left(\Z/N\Z\right)^\times \to \C^\times$.
+\end{definition}
+\begin{definition}
+    (Equivalent characters).
+    We say $\chi_1\in\widehat{(\Z/N_1\Z)^\times}$ and $\chi_2\in\widehat{(\Z/N_2\Z)^\times}$ are \textit{equivalent} if there exists an $M$ such that $N_1,N_2\mid M$ and 
+    \begin{equation}
+        \begin{tikzcd}
+            & (\Z/M\Z)^\times \arrow[dl] \arrow[dr]& \\
+            (\Z/N_1\Z)^\times \arrow[dr] & & (\Z/N_2\Z)^\times \arrow[dl] \\
+                            & \C^\times &
+        \end{tikzcd}
+    \end{equation}
+    commutes.
+\end{definition}
+Note that the projection maps are surjective and so this defines an equivalence relation.
+\begin{definition}
+    (Primitive character).
+    We say $\chi \in \widehat{(\Z/N\Z)^\times}$ is \textit{primitive} if there is no $M<N$ with $M\mid N$ such that $\chi$ factors through $(\Z/M\Z)^\times$.
+\end{definition}
+\begin{lemma}
+    Let $\chi\in\widehat{(\Z/N\Z)^\times}$ and $M\mid N$.
+    Then the following are equivalent
+    \begin{enumerate}
+        \item $\chi$ factors through $(\Z/M\Z)^\times$
+        \item $\chi$ is constant on the fibers of $p:(\Z/N\Z)^\times\to(\Z/M\Z)^\times$
+        \item $x,x+aM\in(\Z/N\Z)^\times \implies \chi(x) = \chi(x+aM)$ for all $a\in \Z$.
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    (2) $\Rightarrow$ (1).
+    We can certainly define a function $\chi':(\Z/M\Z)^\times\to\C^\times$ so that $\chi$ factors through $\chi'$.
+    It remains to show that $\chi'$ is a homomorphism.
+    Let $x,y\in (\Z/M\Z)^\times$ and $a,b\in(\Z/N\Z)^\times$ be preimages of $x$ and $y$ respectively.
+    Then 
+    \begin{equation}
+        \chi'(xy) = \chi'(p(a)p(b)) = \chi'(p(ab)) = \chi(ab) = \chi(a)\chi(b) = \chi'(x) \chi'(y)
+    \end{equation}
+    so $\chi'$ is a homomorphism.
+
+    The remaining implications are obvious.
+\end{proof}
+\begin{corollary}
+    Let $\chi_1\in\widehat{(\Z/N_1\Z)^\times}$ and $\chi_2\in\widehat{(\Z/N_2\Z)^\times}$ be equivalent.
+    Then there exists a $\chi\in \widehat{(\Z/d\Z)^\times}$ where $d = (N_1,N_2)$, such that both $\chi_1$ and $\chi_2$ factor through $\chi$.
+\end{corollary}
+\begin{proof}
+    Write $d = aN_1+bN_2$ for $a,b\in \Z$ and let $M$ be such that $N_1,N_2\mid M$ and 
+    \begin{equation}
+        \begin{tikzcd}
+            & (\Z/M\Z)^\times \arrow[dl] \arrow[dr]& \\
+            (\Z/N_1\Z)^\times \arrow[dr] & & (\Z/N_2\Z)^\times \arrow[dl] \\
+                            & \C^\times &
+        \end{tikzcd}
+    \end{equation}
+    commutes.
+    Let $\psi\in\widehat{(\Z/M\Z)^\times}$ be the vertical map.
+    This map is constant on 
+\end{proof}
+\begin{corollary}
+    If $\chi\in\widehat{(\Z/N\Z)^\times}$ then there exists a unique $M\mid N$ and a primitive $\chi_*\in\widehat{(\Z/M\Z)^\times}$ such that it is equivalent to $\chi$.
+\end{corollary}
+\begin{proof}
+    Obvious from previous corollary.
+\end{proof}
+\begin{definition}
+    (Dirichlet $L$-series).
+    Let $\chi\in\widehat{(\Z/N\Z)^\times}$. 
+    The \textit{Dirichlet $L$-series} of $\chi$ is
+    \begin{equation}
+        L(\chi,s) = \sum_{n\ge1,(n,N)=1}\chi(n)n^{-s}.
+    \end{equation}
+\end{definition}
+\begin{proposition}
+    \begin{equation}
+        L(\chi,s) = \prod_{p\nmid N} \frac1{1-\chi(p)p^{-s}}.
+    \end{equation}
+\end{proposition}
+\begin{proposition}
+    Suppose $M\mid N$ and $\chi_N\in\widehat{(\Z/N\Z)^\times}$ factors through $\chi_M\in\widehat{(\Z/M\Z)^\times}$.
+    Then
+    \begin{equation}
+        L(\chi_M,s) = \prod_{p\nmid M,p\mid N} \frac1{1-\chi_M(p)p^{-s}}L(\chi_N,s).
+    \end{equation}
+    In particular,
+    \begin{equation}
+        \frac{L(\chi_M,s)}{L(\chi_N,s)} = \prod_{p\nmid M,p\mid N} \frac1{1-\chi_M(p)p^{-s}}
+    \end{equation}
+    is analytic and non-zero on $\Re(s)>0$.
+\end{proposition}
+\begin{thm}
+    \begin{enumerate}
+        \item $L(\chi,s)$ has a meromorphic continuation to $\C$, which is analytic except for at worst a simple pole at $s=1$.
+        \item If $\chi \ne \chi_0$ (the trivial character), then $L(\chi,s)$ is analytic everywhere. On the other hand, $L(\chi_0,s)$ has a simple pole with residue 
+            \begin{equation}
+                \frac{\phi(N)}N = \prod_{p\mid N} \left(1-\frac1p\right).
+            \end{equation}
+    \end{enumerate}
+\end{thm}
+\begin{proof}
+    Let $\phi:\Z/N\Z\to \C$ be any $N$-periodic function, and let $L(\phi,s) = \sum_{n = 1}^\infty\phi(n)n^{-s}$.
+    Then
+    \begin{equation}
+        (2\pi)^{-s}\Gamma(s)L(\phi,s) = \sum_{n=1}^\infty \phi(n)M(e^{-2\pi y},s) = M(f(y),s),
+    \end{equation}
+    where $f(y) = \sum_{n=1}^\infty\phi(n)e^{-2\pi n y}$.
+    A straightforward calculation shows that 
+    \begin{equation}
+        f(y) = \sum_{n = 1}^N \phi(n) \frac{e^{2\pi(N-n)y}}{e^{e\pi Ny}-1}.
+    \end{equation}
+    Note that this is $\mathcal O(e^{-2\pi y})$ as $y\to\infty$.
+    Write $M(f,s) = M_0(s)+M_\infty(s)$ as before.
+    The second term is analytic for all $s\in\C$, and the first one is given by
+    \begin{equation}
+        M_0(s) = \sum_{n=1}^N\phi(n)\int_0^1\frac{e^{2\pi(N-n)y}}{e^{2\pi Ny}-1} y^s\frac{dy}y.
+    \end{equation}
+    For any $L$ we can write
+    \begin{equation}
+        \frac{e^{2\pi(N-n)y}}{e^{2\pi Ny}-1} = \frac1{2\pi Ny} + \sum_{r=0}^{L-1}c_{r,n}y^r + y^Lg_{L,n}(y)
+    \end{equation}
+    for some $g_{L,n}(y)\in C^\infty[0,1]$.
+    Hence
+    \begin{equation}
+        M_0(s) = \sum_{n=1}^N\phi(n) \left(\int_0^1\frac1{2\pi Ny}y^s\frac{dy}y + \int_0^1\sum_{r=0}^{L-1}c_{r,n}y^{r+s-1}dy\right)+G(s),
+    \end{equation}
+    where $G$ is a function that is analytic on $\Re(s)>-L$.
+    Thus
+    \begin{equation}
+        (2\pi)^{-s}\Gamma(s)L(\phi,s) = \sum_{n=1}^N\phi(n)\left(\frac1{2\pi N(s-1)}+\frac{c_{0,n}}s+\cdots+\frac{c_{L-1,n}}{s+L-1}\right) + G(s).
+    \end{equation}
+    The first part follows from setting 
+    \begin{equation}
+        \phi(n) = \begin{cases}
+            \chi(n) & \text{ if $(n,N)=1$} \\
+            0 & \text{otherwise.}
+        \end{cases}
+    \end{equation}
+    It also follows that
+    \begin{equation}
+        \res_{s=1}L(\chi,s) = \frac1N\sum_{n=1}^N\phi(n).
+    \end{equation}
+    If $\chi\ne\chi_0$ this vanishes by orthogonality of characters.
+    Otherwise it is equal to $\abs{(\Z/N\Z)^\times}/N = \phi(N)/N$.
+\end{proof}
+\begin{lemma}
+    \label{lem:ord}
+    If $p\nmid N$ and $T$ is any complex number, then 
+    \begin{equation}
+        \prod_{\chi\in \widehat{(\Z/N\Z)^\times}}(1-\chi(p)T) = (1-T^{f_p})^{\phi(N)/f_p}
+    \end{equation}
+    where $f_p$ is the order of $p$ in $(\Z/N\Z)^\times$.
+\end{lemma}
+\begin{proof}
+    Fix a $p$, write $f = f_p$, $G = (\Z/N\Z)^\times$ and $H = \langle p \rangle \subseteq G$.
+    The projection map $G\to G/H$ induces an injection $\widehat{G/H} \to \hat G$ and the restriction map $\hat G \to \hat H$ induces an injection (and hence an isomorphism)
+    \begin{equation}
+        \frac{\hat G}{\widehat{G/H}} \to \hat H.
+    \end{equation}
+    Also $\widehat{|G/H|} = |G/H| = \phi(N)/f$.
+    Thus
+    \begin{equation}
+        \prod_{\chi \in \hat G}(1-\chi(p)T) = \prod_{\chi \in \hat H}(1-\chi(p)T)^{\phi(N)/f} = \prod_{\zeta\in \mu_f}(1-\zeta T)^{\phi(N)/f} = (1-T^f)^{\phi(N)/f}.
+    \end{equation}
+\end{proof}
+\begin{lemma}
+    \label{lem:conv}
+    Let $D(s) = \sum_{n\ge 1}a_n n^{-s}$ be a Dirichlet series with real $a_n\ge 0$, and suppose that it is absolutely convergent for $\Re(s) > \sigma > 0$.
+    Then if $D(s)$ can be analytically continued to an analytic function $\tilde D$ on $\{\Re(s)>0\}$, then the series converges for all real $s>0$.
+\end{lemma}
+\begin{proof}
+    Let $\rho > \sigma$. Then by the analytic continuation, we have a convergent Taylor series on $\{|s-\rho| < \rho\}$
+    \begin{equation}
+        D(s) = \sum_{k\ge 0} \frac1{k!}D^{(k)}(\rho)(s-\rho)^k.
+    \end{equation}
+    Moreover, since $\rho > \sigma$, we can differentiate the Dirichlet series term by term to obtain the derivatives
+    \begin{equation}
+        D^{(k)}(\rho) = \sum_{n\ge 1} a_n(-\log n)^kn^{-\rho}.
+    \end{equation}
+    Thus if $0<x<\rho$,
+    \begin{equation}
+        D(x) = \sum_{k\ge 0}\frac1{k!}(\rho-x)^k\left(\sum_{n\ge 1}a_n(\log n)^kn^{-\rho}\right).
+    \end{equation}
+    Since all the terms are non-negative, this must converge unconditionally and so rearranging we find
+    \begin{align}
+        D(x) &= \sum_{n\ge 1}a_nn^{-\rho}\sum_{k\ge 0}\frac1{k!}(\rho-x)^k(\log n)^k \nonumber \\
+             &= \sum_{n\ge 1} a_nn^{-\rho}e^{(\rho-x)\log n} = \sum_{n\ge 1}a_nn^{-x}.
+    \end{align}
+\end{proof}
+\begin{lemma}
+    \label{lem:div}
+    \begin{enumerate}
+        \item 
+        \begin{equation}
+            \sum_{p}p^{-x} \sim -\log(x-1)
+        \end{equation}
+        as $x\to 1^+$.
+        \item
+        If $\chi \ne \chi_0$ is a Dirichlet character mod $N$, then
+        \begin{equation}
+            \sum_{p\nmid N}\chi(p)p^{-x}
+        \end{equation}
+        is bounded as $x\to 1^+$.
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    Let $\chi$ be a Dirichlet character mod $N$.
+    Then
+    \begin{equation}
+        \log L(\chi,x) = \sum_{p\nmid N} -\log(1-\chi(p)p^{-x}) = \sum_{p\nmid N} \sum_{r\ge 1} \frac{\chi(p)^rp^{-rx}}r
+    \end{equation}
+    so
+    \begin{align}
+        \left|\log L(\chi,x) - \sum_{p\nmid N}\chi(p)p^{-x}\right| &< \sum_{p\nmid N} \sum_{r\ge 2}p^{-rx} \nonumber \\
+                                                                   &= \sum_{p\nmid N} \frac{p^{-2x}}{1-p^{-x}} \nonumber \\
+                                                                   &\le \sum_{n\ge 1} \frac{n^{-2}}{1/2}
+    \end{align}
+    which is a finite constant.
+    When $\chi=\chi_0$ and $N=1$, then $|\log\zeta(x)-\sum_{p}p^{-x}|$ is bounded as $x\to1^+$.
+    But $\zeta(s) = 1/(s-1)+\mathcal O(s)$ and so 
+    \begin{equation}
+        \sum_{p}p^{-x} \sim -\log(x-1).
+    \end{equation}
+    When $\chi\ne \chi_0$, then $L(\chi,1) \ne 0$ by the next theorem and so $\log L(\chi,x)$ is bounded as $x\to1^+$ which implies the result.
+\end{proof}
+\begin{thm}
+    If $\chi \ne \chi_0$ then $L(\chi,1) \ne 0$.
+\end{thm}
+\begin{proof}
+    Let 
+    \begin{equation}
+        \zeta_N(s) = \prod_{\chi \in \widehat{(\Z/N\Z)^\times}} L(\chi,s) = \prod_{p\nmid N} \prod_{\chi}(1-\chi(p)p^{-s})^{-1} = L(\chi_0,s)\prod_{\chi\ne\chi_0}L(\chi,s)
+    \end{equation}
+    for $\Re(s)>1$.
+    We know that $L(\chi_0,s)$ has a pole at $s = 1$ and is analytic elsewhere and so if any $L(\chi,1) = 0$, then $\zeta_N(s)$ is analytic on $\Re(s)>0$.
+    Since the Dirichlet series for $\zeta_N$ has $\ge0$ coefficients, by lemma \ref{lem:conv}, it suffices to find some point on $\R_{>0}$ where the Dirichlet series for $\zeta_N$ does not converge.
+    But by lemma \ref{lem:ord}
+    \begin{align}
+        \zeta_N(s) &= \prod_{p\nmid N} (1-p^{-f_ps})^{-\phi(N)/f_p} \nonumber \\
+                   &= \prod_{p\nmid N} (1+p^{-f_px}+p^{-2f_px}+\cdots)^{\phi(N)/f_p} \nonumber \\
+                   &\ge \sum_{p\nmid N} p^{-\phi(N)x}.
+    \end{align}
+    But $\sum_pp^{-1}$ diverges by lemma \ref{lem:div} and so the series for $\zeta_N(x)$ does not converge at $x=1/\phi(N)$.
+\end{proof}
+\begin{thm}
+    Let $a\in\Z$ be such that $(a,N) = 1$. Then there exists infinitely many primes $p\equiv a \pmod{N}$.
+\end{thm}
+\begin{proof}
+    It suffices to show that 
+    \begin{equation}
+        \sum_{p\equiv\pmod{N}} p^{-x}
+    \end{equation}
+    diverges as $x\to1^+$.
+    But when $(x,N) = 1$ we have
+    \begin{equation}
+    \sum_{\chi\in \widehat{(\Z/N\Z)^\times}}\chi(x) = \begin{cases}\phi(N) & x\equiv 1\pmod{N} \\ 0 &\text{ otherwise}\end{cases}
+    \end{equation}
+    by column orthogonality of the character table of $(\Z/N\Z)^\times$.
+    Thus
+    \begin{equation}
+        \sum_{p\equiv\pmod{N}} p^{-x} = \frac1{\phi(N)} \sum_{\chi\in(\Z/N\Z)^\times}\chi(a)^{-1}\sum_p\chi(p)p^{-x}.
+    \end{equation}
+    If $\chi = \chi_0$, then the sum is just 
+    \begin{equation}
+        \sum_{p\nmid N}p^{-x} \sim -\log(x-1)
+    \end{equation}
+    as $x\to1^+$.
+    By lemma \ref{lem:div} all the other sums are bounded and so the result follows.
+\end{proof}
+\chapter{The modular group}
+\begin{definition}
+    \begin{align}
+        \GL_2(\R)^+ &= \{\gamma\in \GL_2(\R):\det\gamma>0\} \\
+        \PGL_2(\R)^+ &= \GL_2(\R)^+/\R^\times \cong \PSL_2(\R).
+    \end{align}
+    The latter is the group of Mobius transforms that map $\mathcal H$ to $\mathcal H$, and the stabiliser of $i$ is $\SO(2)/\{\pm I\}$.
+    In fact $\PSL_2(\R)$ is the group of all holomorphic automorphisms of $\mathcal H$, and the subgroup $\SO(2)\subseteq \SL_2(\R)$ is a maximal compact subgroup.
+\end{definition}
+\begin{thm}
+    The group $\SL_2(\R)$ admits the \textit{Iwasawa decomposition}
+    \begin{equation}
+        \SL_2(\R) = KAN = NAK
+    \end{equation}
+    where 
+    \begin{equation}
+    K = \SO(2), \quad A = \left\{\begin{pmatrix}r & 0 \\ 0 & 1/r\end{pmatrix}\right\}, \quad N = \left\{\begin{pmatrix}1 & x \\ 0 & 1\end{pmatrix}\right\}.
+    \end{equation}
+\end{thm}
+\begin{proof}
+    Let $A\in\SL_2(\R)$. 
+    Then there exists a $B\in\SO(2)$ so that $BA$ is upper triangular. The rest follows easily.
+\end{proof}
+\begin{definition}
+    For $\Gamma \le \SL_2(\R)$, we write $\bar \Gamma$ for the image in $\PSL_2(\R)$.
+\end{definition}
+\begin{definition}
+    The \textit{modular group} is 
+    \begin{equation}
+        \PSL_2(\Z) = \frac{\SL_2(\Z)}{\{\pm I\}}.
+    \end{equation}
+\end{definition}
+\begin{thm}
+    Let
+    \begin{equation}
+        \mathcal D = \left\{z\in \mathcal H: -\frac12 \le \Re(z) \le \frac12, \abs{z}>1\right\} \cup \left\{z\in \mathcal H: \abs{z} = 1, \Re(s) \ge 0\right\}.
+    \end{equation}
+    Then $\mathcal D$ is a fundamental domain for the action of $\SL_2(\Z)$ on $\mathcal H$.
+    The stabiliser of $z\in \mathcal D$ in $\SL_2(\Z)$ is trivial if $z\ne i,\rho$, and 
+    \begin{equation}
+        \bar \Gamma_i = \langle S \rangle \cong C_2, \quad \bar \Gamma_\rho = \langle TS \rangle \cong C_3.
+    \end{equation}
+\end{thm}
+\begin{proposition}
+    The measure
+    \begin{equation}
+        d\mu = \frac{dx dy}{y^2}
+    \end{equation}
+    is invariant under $\PSL_2(\R)$. 
+    If $\Gamma\subseteq \PSL_2(\Z)$ is of finite index then $\mu(\Gamma \backslash \mathcal H)$.
+\end{proposition}
+\begin{proof}
+    Note that
+    \begin{equation}
+        \frac{dx\wedge dy}{y^2} = \frac{i dz\wedge d\bar z}{2(\Im(z))^2}.
+    \end{equation}
+    It is then straightforward to see that it is invariant under $\PSL_2(\R)$.
+    For the last part it suffices to show that $\mu(\mathcal D)$ is finite.
+    A straightforward calculation shows that
+    \begin{equation}
+        \mu(\mathcal D) = \int_{\mathcal D} \frac{dxdy}{y^2} = \frac{\pi}3. 
+    \end{equation}
+\end{proof}
+\begin{definition}
+    (Principal congruence subgroup).
+    For $N\ge 1$, the \textit{principal congruence subgroup} of level $N$ is
+    \begin{equation}
+        \Gamma(N) = \ker(\SL_2(\Z)\to\SL_2(\Z/N\Z)).
+    \end{equation}
+    Any $\Gamma\subseteq \SL_2(\Z)$ containing some $\Gamma(N)$ is called a \textit{congruence subgroup}, and its \textit{level} is the smallest $N$ such that $\Gamma\supseteq \Gamma(N)$.
+    $\Gamma_0(N)$ is defined as the preimage of upper triangular matrices, and $\Gamma_1(N)$ the preimage of strictly upper triangular matrices.
+\end{definition}
+\chapter{Modular forms of level 1}
+\section{Basic definitions}
+\begin{definition}
+    Let 
+    \begin{equation}
+        \begin{pmatrix}a & b\\ c & d\end{pmatrix} = \gamma \in \GL_2(\R)^+, z\in \mathcal H,
+    \end{equation}
+    and $f:\mathcal H\to \C$ be any function.
+    We write $j(\gamma,z) = cz+d$.
+    We define the \textit{slash operator} to be
+    \begin{equation}
+        (f\underset{k}{|} \gamma)(z) = (\det\gamma)^{k/2}j(\gamma,z)^{-k}f(\gamma(z)).
+    \end{equation}
+\end{definition}
+\begin{remark}
+    It will be helpful to note that
+    \begin{equation}
+    \gamma \begin{pmatrix} z \\ 1\end{pmatrix} = j(\gamma,z) \begin{pmatrix} \gamma z \\ 1\end{pmatrix}.
+    \end{equation}
+\end{remark}
+\begin{proposition}
+    \begin{enumerate}
+        \item $j(\gamma\delta,z) = j(\gamma,\delta z)j(\delta,z)$
+        \item $j(\gamma^{-1},z) = j(\gamma,\gamma^{-1}(s))^{-1}$
+        \item $\gamma:\phi\mapsto g\underset{k}{|}\gamma$ is a right action of $\GL_2(\R)^+$ on functions on $\mathcal H$.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    \begin{enumerate}
+        \item We have
+            \begin{equation}
+            j(\gamma\delta,z) \begin{pmatrix} \gamma\delta z \\ 1\end{pmatrix} = \gamma\delta \begin{pmatrix} z \\ 1\end{pmatrix} = j(\delta,z)\gamma \begin{pmatrix} \delta z \\ 1\end{pmatrix} = j(\delta,z)j(\gamma,\delta z) \begin{pmatrix} \gamma \delta z \\ 1\end{pmatrix}.
+            \end{equation}
+        \item Set $\delta = \gamma^{-1}$.
+        \item Follows from (i).
+    \end{enumerate}
+\end{proof}
+\chapter{Hecke operators}
+\begin{thm}
+    Let $G=\GL_2(\Q)$ and $\Gamma\subseteq \SL_2(\Z)$ be a subgroup of finite index.
+    Then for all $g\in G$, $|\Gamma:\Gamma\cap g^{-1}\Gamma | < \infty$.
+\end{thm}
+\begin{proof}
+    Consider the case $\Gamma = \SL_2(\Z)$, and 
+    \begin{equation}
+        g = \begin{pmatrix}
+            a & b \\
+            c & d
+        \end{pmatrix} \in \text{Mat}_2(\Z).
+    \end{equation}
+    We claim that if $\det g = \pm N$, $N\ge$ then $g^{-1}\Gamma g\supseteq \Gamma(N)$ from which the theorem follows.
+    To do this it suffices to show that if $\gamma \in \Gamma(N)$ then $g\gamma g^{-1}$ has integer entries.
+    But
+    \begin{equation}
+        \pm N g \gamma g^{-1} = \begin{pmatrix}
+            a & b \\
+            c & d
+        \end{pmatrix} \gamma
+        \begin{pmatrix}
+            d & -b \\
+            -c & a
+        \end{pmatrix} \equiv
+        \begin{pmatrix}
+            a & b \\
+            c & d
+        \end{pmatrix} 
+        \begin{pmatrix}
+            d & -b \\
+            -c & a
+        \end{pmatrix} \equiv
+        NI \equiv 0 \pmod{N}
+    \end{equation}
+    so $g\gamma g^{-1}$ has integer entries.
+
+    Now, in general if $g'\in\GL_2(\Q)$ then we can write $g' \frac1M g$ for $g$ with integer entries, and conjugating by $g'$ and $g$ yields the same result.
+
+    The general case follows from the fact that if $\abs{G:H}<\infty$ and $\abs{G:H'}<\infty$ then $\abs{G:H\cap H'}<\infty$ and the following diagram
+    \begin{equation}
+        \begin{tikzcd}
+            & \Gamma(1) & & g^{-1}\Gamma(1)g & \\
+            \Gamma \arrow[ru,dash,"<\infty"] & & \Gamma(1)\cap g^{-1}\Gamma(1)g \arrow[lu,dash,"<\infty"] \arrow[ru,dash,"<\infty"] & & g^{-1}\Gamma g \arrow[lu,dash,"<\infty"] \\
+                   & \Gamma \cap g^{-1}\Gamma(1)g \arrow[lu,dash] \arrow[ru,dash] & & \Gamma(1)\cap g^{-1}\Gamma g \arrow[lu,dash] \arrow[ru,dash] & \\
+                   & & \Gamma \cap g^{-1}\Gamma g. \arrow[lu,dash] \arrow[ru,dash] & &
+        \end{tikzcd}
+    \end{equation}
+\end{proof}
+\begin{notation}
+    Let $G$ be a group, $M$ a $\Z G$-module and $\Gamma\le G$.
+    For $g\in G$ and $m\in M^\Gamma$, we write
+    \begin{equation}
+        m|[\Gamma g \Gamma] = \sum_{i = 1}^nmg_i,
+    \end{equation}
+    where
+    \begin{equation}
+        \Gamma g \Gamma = \coprod_{i = 1}^n\Gamma g_i.
+    \end{equation}
+\end{notation}
+\begin{proposition}
+    \begin{enumerate}
+        \item $m|[\Gamma g\Gamma]$ depends only on $\Gamma g \Gamma$.
+        \item $m|[\Gamma g\Gamma]\in M^\Gamma$ .
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    Obvious.
+\end{proof}
+\begin{thm}
+    There is a product on $\mathcal H(G,\Gamma)$, the free abelian group generated by double cosets, making it into an associative ring, the \textit{Hecke algebra} of $(G,\Gamma)$, with unit $[\Gamma e \Gamma] = [\Gamma ]$, such that for every $G$-module $M$, we have $M^\Gamma$ is a right $\mathcal H(G,\Gamma)$-module by the operation $|$.
+\end{thm}
+\begin{proof}
+    There is an obvious bijection $\Theta:\mathcal H(G,\Gamma) \to M$ where $M = \Z[\Gamma\backslash G]^\Gamma$.
+    We can view $\Gamma g \Gamma$ as living in $M^\Gamma$.
+    We then define 
+    \begin{equation}
+        [\Gamma g \Gamma] \cdot [\Gamma h \Gamma] = \Theta^{-1}((\Gamma g \Gamma) | [\Gamma h \Gamma]).
+    \end{equation}
+    This is clearly well defined.
+    If we write 
+    \begin{align}
+        \Gamma g \Gamma &= \coprod\Gamma g_i \\
+        \Gamma h \Gamma &= \coprod\Gamma h_j
+    \end{align}
+    then
+    \begin{equation}
+        \label{eq:mult}
+        [\Gamma g \Gamma] \cdot [\Gamma h \Gamma] = \Theta^{-1}\left(\sum_{i,j}[\Gamma g_i h_j]\right).
+    \end{equation}
+    This then is clearly associative and has unit $[\Gamma e \Gamma]$.
+    The rest follows in a staightforward manner.
+\end{proof}
+\begin{remark}
+    \begin{equation}
+        [\Gamma g \Gamma] \cdot [\Gamma h \Gamma] = \sum_{k\in S}\sigma(k)[\Gamma k \Gamma]
+    \end{equation}
+    where $S$ is a set of double coset representatives and $\sigma(k)$ is the number of pairs $(i,j)$ such that $\Gamma g_ih_j = \Gamma k$.
+    This follows immediately form equation \ref{eq:mult}.
+\end{remark}
+\section{Hecke operators on modular forms}
+Let $G = \GL_2(\Q)^+$ and $\Gamma = \SL_2(\Z)$.
+We wish to understand the single and double cosets.
+
+We start by understanding the cosets of $\Gamma\subseteq\GL_2(\Z)^+$.
+There is a bijection 
+\begin{align}
+\left\{ \begin{matrix} \text{Cosets $\Gamma \gamma$ such that } \\ \text{$\gamma\in \Mat_2(\Z)$, $\det\gamma = n$}\end{matrix} \right\} &\leftrightarrow \left\{ \begin{matrix} \text{Subgroups $\Lambda\subseteq\Z^2$} \\ \text{of index $n$}\end{matrix} \right\} \\
+    \Gamma\gamma \quad &\rightarrow \quad \text{row span of $\gamma$} \nonumber \\
+    \text{oriented generators of } \Lambda \quad &\leftarrow \quad \Lambda \nonumber
+\end{align}
+This follows essentially from Pick's theorem.
+
+We want to use this bijection to pick coset representatives.
+Fix a $\Lambda\subseteq \Z^2$ of index $n$.
+Let $d\in\N$ be such that $\Lambda \cap \Z e_2 = (d\Z)e_2$.
+Let $\lambda = ae_1+be_2 \in \Lambda$ with $a>0$ minimal.
+There is a unique such $\lambda$ with $0\le b < d$.
+It is clear from this construction that $\Lambda = \langle ae_1+be_2,de_2 \rangle$.
+In fact this gives us a new bijection
+\begin{equation}
+\left\{ \begin{matrix} \text{Subgroups $\Lambda\subseteq\Z^2$} \\ \text{of index $n$}\end{matrix} \right\} \leftrightarrow \Pi_n
+\end{equation}
+where 
+\begin{equation}
+    \Pi_n = \left\{ \begin{pmatrix} a & b \\ 0 & d\end{pmatrix}\in\Mat_2(\Z) : a,d\ge 1, ad = n, 0\le b< d \right\}.
+\end{equation}
+It follows that
+\begin{equation}
+    \left\{\gamma\in\Mat_2(\Z):\det\gamma = n\right\} = \coprod_{\gamma\in\Pi_n}\Gamma\gamma.
+\end{equation}
+\begin{proposition}
+    \begin{enumerate}
+        \item Let $\gamma\in\Mat_2(\Z)$ and $\det\gamma = n\ge 1$. Then
+            \begin{equation}
+                \Gamma\gamma\Gamma = \Gamma\begin{pmatrix}n_1 & 0 \\ 0 & n_2\end{pmatrix}\Gamma
+            \end{equation}
+            for unique $n_1,n_2\ge 1$ and $n_2\mid n_1, n_1n_2 = n$.
+        \item 
+            \begin{equation}
+                \{\gamma\in\Mat_2(\Z) : \det\gamma = n\} = \coprod \Gamma\begin{pmatrix}n_1 & 0 \\ 0 & n_2\end{pmatrix}\Gamma
+            \end{equation}
+            where the sum is over $n_1,n_2\ge 1, n_2\mid n_1, n_1n_2 = n$.
+        \item Let $\gamma,n_1,n_2$ be as above, if $d\ge1$, then
+            \begin{equation}
+                \Gamma(d^{-1}\gamma)\Gamma = \Gamma\begin{pmatrix}n_1/d & 0 \\ 0 & n_2/d\end{pmatrix}\Gamma.
+            \end{equation}
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    Smith normal form (though some extra work needs to be done).
+\end{proof}
+\begin{corollary}
+    The set
+    \begin{equation}
+        \left\{ \Gamma \begin{pmatrix} r_1 & 0 \\ 0 & r_2 \end{pmatrix} \Gamma : r_1,r_2\in \Q_{>0}, r_1/r_2\in\Z \right\}
+    \end{equation}
+    is a $\Z$ basis for $\mathcal H(G,\Gamma)$.
+\end{corollary}
+\begin{proof}
+    It clearly contains all double cosets.
+    To see that the double cosets are distinct multiply by a constant to clear denominators and the result follows.
+\end{proof}
+\begin{notation}
+    For $n_1,n_2$ with $n_1\mid n_2$ we define
+    \begin{equation}
+    T(n_1,n_2) = \left[ \Gamma \begin{pmatrix} n_1 & 0 \\ 0 & n_2\end{pmatrix} \Gamma \right].
+    \end{equation}
+    From $T$ we define $R(n) = T(n,n)$ and $T(n) = \sum_{1\ge n_1\mid n_2, n_1n_2 = n} T(n_1,n_2)$.
+\end{notation}
+\begin{lemma}
+    Let $G$ be an abelian group of size $nm$ with $(n,m) = 1$.
+    Then there exists a unique subgroup $H\le G$ of size $n$.
+\end{lemma}
+\begin{proof}
+    Since $\ord(g_1+g_2)\mid \ord(g_1)\ord(g_2)$ it follows that all elements coprime to $m$ form a subgroup of $G$.
+    Call this subgroup $H$.
+    By Sylow's theorems, $n\mid |H|$.
+    By Cauchy's theorem, $|H|\mid n$.
+    Thus we have existence.
+    Uniqueness follows since if $H'$ is another such subgroup, then by construction $H'\le H$.
+    Since they have the same order they must be equal.
+\end{proof}
+\begin{corollary}
+    Let $\Lambda\le \Z^2$ be a subgroup of index $nm$ with $(m,n)=1$. 
+    Then there exists a unique $\Lambda\le\Lambda'\le \Z^2$ such that $|\Lambda':\Lambda| = n$.
+\end{corollary}
+\begin{corollary}
+    \label{cor:lat}
+    Let $L_k$ denote the set of subgroups of $\Z^2$ of index $k$.
+    If $(n,m)=1$ then
+    \begin{equation}
+        L_{mn} = \coprod_{\Lambda\in L_n} \{\text{subgroups of $\Lambda$ of index m}\}
+    \end{equation}
+\end{corollary}
+\begin{thm}
+    \begin{enumerate}
+        \item $R(nm) = R(n)R(m)$ for all $n,m\ge 1$ and $R(n)$ lies in the center of $\mathcal H(G,\Gamma)$ for all $n\ge 1$.
+        \item $T(nm) = T(n)T(m)$ whenever $(m,n) = 1$.
+        \item $T(p)T(p^r) = T(p^{r+1}) + pR(p)T(p^{r-1})$ for $r\ge 1$.
+    \end{enumerate}
+\end{thm}
+\begin{proof}
+    \begin{enumerate}
+        \item Since
+            \begin{equation}
+                \Gamma \begin{pmatrix} n & 0 \\ 0 & n\end{pmatrix} \Gamma =\Gamma \begin{pmatrix} n & 0 \\ 0 & n\end{pmatrix}
+            \end{equation}
+            we have
+            \begin{equation}
+                \left[\Gamma \begin{pmatrix} n & 0 \\ 0 & n\end{pmatrix} \Gamma\right] [\Gamma\gamma\Gamma] = \left[\Gamma \begin{pmatrix} n & 0 \\ 0 & n\end{pmatrix} \gamma \Gamma\right]
+            \end{equation}
+            for all $\gamma$.
+            The result follows.
+        \item We have
+            \begin{equation}
+                \Theta(T(m)T(n)) = \sum_{\delta\in\Pi_m,\gamma\in\Pi_n}[\Gamma \delta\gamma]
+            \end{equation}
+            and 
+            \begin{equation}
+                \Theta(T(mn)) = \sum_{\epsilon\in\Pi_{mn}}[\Gamma \epsilon].
+            \end{equation}
+            But $\{\Gamma\delta\gamma:\delta\in\Pi_m\}$ corresponds to subgroups of $\Z^2\gamma$ of index $m$ and so the result follows from corollary \ref{cor:lat}.
+        \item We have
+            \begin{equation}
+                \Theta(T(p^r)T(p)) = \sum_{\delta\in\Pi_{p^r},\gamma\in\Pi_p}[\Gamma \delta\gamma].
+            \end{equation}
+            As before $\{\Gamma\delta\gamma:\delta\in\Pi_{p^r}\}$ corresponds to subgroups of $\Z^2\gamma$ of index $p^r$.
+            Note that all index $p$ subgroups of $\Z^2$ contain $p\Z^2$ and so if $\Lambda$ is an index $p^{r+1}$ subgroup of $\Z^2$ contained in $p\Z^2\subset$ then it is contained in all $p+1$ index $p$ subgroups of $\Z^2$.
+            If $p\Z^2$ does not contain $\Lambda$ then $|\Z^2:\Lambda+p\Z^2| = p$.
+            Using the fact that $p\Z^2$ is contained in all index $p$ subgroups it is straightforward to show that $\Lambda+p\Z^2$ is the unique index $p$ subgroup of $\Z^2$ containing $\Lambda$.
+            The result follows.
+    \end{enumerate}
+\end{proof}
+\begin{corollary}
+    $\mathcal H(G,\Gamma)$ is commutative and is generated by $\{T(p),R(p),R(p)^{-1}:\text{ $p$ prime}\}$.
+\end{corollary}
+\begin{proof}
+    It suffices to show that given set generates $\mathcal H(G,\Gamma)$.
+    It is clear that $T(n_1,n_2), R(p), R(p)^{-1}$ generate $\mathcal H(G,\Gamma)$.
+    But we know 
+    \begin{equation}
+        T(n_1,n_2) = R(n_2)T(n_1/n_2,1)
+    \end{equation}
+    so we only need to show that we can obatin the $T(n,1)$.
+    Note that when $n$ is squarefree $T(n) = T(n,1)$ so this case is ok.
+    The remaining cases follow from induction.
+\end{proof}
+\end{document}
