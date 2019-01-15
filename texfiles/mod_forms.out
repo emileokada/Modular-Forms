@@ -1,11 +1,13 @@
 \BOOKMARK [0][-]{section*.1}{Contents}{}% 1
 \BOOKMARK [0][-]{chapter.1}{Preliminary analysis}{}% 2
 \BOOKMARK [1][-]{section.1.1}{Fourier transform}{chapter.1}% 3
-\BOOKMARK [1][-]{section.1.2}{Mellin transform and -function}{chapter.1}% 4
-\BOOKMARK [1][-]{section.1.3}{Riemann -function}{chapter.1}% 5
+\BOOKMARK [1][-]{section.1.2}{Mellin transform and Gamma-function}{chapter.1}% 4
+\BOOKMARK [1][-]{section.1.3}{Riemann Zeta-function}{chapter.1}% 5
 \BOOKMARK [1][-]{section.1.4}{Dirichlet L-functions}{chapter.1}% 6
 \BOOKMARK [0][-]{chapter.2}{The modular group}{}% 7
 \BOOKMARK [0][-]{chapter.3}{Modular forms of level 1}{}% 8
 \BOOKMARK [1][-]{section.3.1}{Basic definitions}{chapter.3}% 9
 \BOOKMARK [0][-]{chapter.4}{Hecke operators}{}% 10
 \BOOKMARK [1][-]{section.4.1}{Hecke operators on modular forms}{chapter.4}% 11
+\BOOKMARK [0][-]{chapter.5}{L-functions of eigenforms}{}% 12
+\BOOKMARK [0][-]{chapter.6}{Modular forms for subgroups of SL\(2,Z\)}{}% 13

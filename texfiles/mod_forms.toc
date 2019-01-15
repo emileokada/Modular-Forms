@@ -23,3 +23,7 @@
 \contentsline {chapter}{\chapternumberline {4}Hecke operators}{19}{chapter.4}
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {4.1}Hecke operators on modular forms}{21}{section.4.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\chapternumberline {5}$L$-functions of eigenforms}{27}{chapter.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\chapternumberline {6}Modular forms for subgroups of $\mathbf {SL}_2(\mathbb {Z})$}{29}{chapter.6}
